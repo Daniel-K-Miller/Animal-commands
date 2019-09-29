@@ -34,10 +34,25 @@ body {
   }
 }
 
-#container {
+.container {
   display: flex;
+  p {
+    color: goldenrod;
+  }
 }
 
 .controls-container {
   display: flex;
+}
+
+.red-text {
+  color: red;
+}
+
+.green-text {
+  color: green;
+}
+
+.yellow-text {
+  color: yellow;
 }

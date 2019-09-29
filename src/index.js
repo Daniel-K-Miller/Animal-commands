@@ -1,4 +1,4 @@
-import style from './styles.scss';
+import style from "./styles.scss";
 
 setTimeout(() => console.log("hiyas"), 100);
 
@@ -11,58 +11,91 @@ class Animal {
     this.legs = legs;
     this.arms = arms;
     this.habitat = habitat;
-    this.posessive = this.gender === "male" ? "his" : this.gender === "female" ? "her" : "its";
+    this.posessive =
+      this.gender === "male" ? "his" : this.gender === "female" ? "her" : "its";
   }
-  state = {
+  props = {
     awake: true
-  }
+  };
   born() {
-    console.log(`${this.name} is born!`)
+    console.log(`${this.name} is born!`);
   }
   sleeps() {
-    if (this.state.awake) {
-      this.state.awake = false;
-      test.innerHTML = `${this.name} falls asleep.`
+    if (this.props.awake) {
+      this.props.awake = false;
+      sleepState.innerHTML = `${this.name} falls asleep.`;
+      sleepState.className = "yellow-text";
     } else {
-      this.state.awake = false;
-      test.innerHTML = `${this.name} is already asleep.`
+      sleepState.innerHTML = `${this.name} is already asleep.`;
+      sleepState.className = "red-text";
     }
   }
   wakes() {
-    if (this.state.awake) {
-      test.innerHTML = `${this.name} is already awake.`
+    if (this.props.awake) {
+      sleepState.innerHTML = `${this.name} is already awake.`;
+      sleepState.className = "red-text";
     } else {
-      this.state.awake = true;
-      test.innerHTML = `${this.name} wakes up.`
+      this.props.awake = true;
+      sleepState.innerHTML = `${this.name} wakes up.`;
+      sleepState.className = "green-text";
     }
   }
   eats() {
-    console.log(`${this.name} eats.`)
+    console.log(`${this.name} eats.`);
   }
   cries() {
-    console.log(`${this.name} cries!`)
+    console.log(`${this.name} cries!`);
   }
 }
 
 class Wolf extends Animal {
-  constructor(name, color, age, posessive) {
-    super(name, color, age, posessive)
+  constructor(name, color, age, posessive, props) {
+    super(name, color, age, posessive, props);
   }
+  state = {
+    howling: false
+  };
   howl() {
-    console.log(`${this.name} howls!`)
+    if (this.props.awake && !this.state.howling) {
+      this.state.howling = true;
+      sleepState.innerHTML = `${this.name} howls.`;
+      sleepState.className = "green-text";
+    } else if (!this.props.awake) {
+      sleepState.innerHTML = `${this.name} cannot howl while asleep.`;
+      sleepState.className = "red-text";
+    } else if (this.state.howling) {
+      sleepState.innerHTML = `${this.name} is already howling!`;
+      sleepState.className = "red-text";
+    }
   }
-  plays() {
-    console.log(`${this.name} plays with the pack.`)
+  stopHowl() {
+    if (this.state.howling) {
+      this.state.howling = false;
+      sleepState.innerHTML = `${this.name} stops howling.`;
+      sleepState.className = "yellow-text";
+    } else if (!this.state.howling && this.props.awake) {
+      sleepState.innerHTML = `${this.name} is not currently howling.`;
+      sleepState.className = "red-text";
+    } else if (!this.props.awake) {
+      sleepState.innerHTML = `${this.name} cannot stop howling as they are asleep!`;
+      sleepState.className = "red-text";
+    }
   }
   stalk() {
-    console.log(`${this.name} stalks ${this.posessive} prey.`)
+    console.log(`${this.name} stalks ${this.posessive} prey.`);
   }
 }
 
-const fluffy = new Wolf({ name: "Fluffy", color: "white", age: 3, gender: "male" });
+const fluffy = new Wolf({
+  name: "Fluffy",
+  color: "white",
+  age: 3,
+  gender: "male"
+});
 
-// 
+//
 document.getElementById("sleep").onclick = () => fluffy.sleeps();
 document.getElementById("wakes").onclick = () => fluffy.wakes();
-const test = document.getElementById("state");
-
+document.getElementById("howl").onclick = () => fluffy.howl();
+document.getElementById("stop-howling").onclick = () => fluffy.stopHowl();
+const sleepState = document.getElementsByClassName("state")[0];
