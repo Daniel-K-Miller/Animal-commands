@@ -1,0 +1,43 @@
+$bricky: #343434;
+$randomColor: #789201;
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: $bricky;
+  h1 {
+    color: red;
+  }
+  h2 {
+    color: $randomColor;
+  }
+}
+
+.buttons-container {
+  display: flex;
+  button {
+    margin: 1em 0.5em;
+    border: none;
+    padding: 0.5em;
+    border-radius: 3px;
+    &:first-child {
+      color: black;
+      background: linear-gradient(white, lightgrey);
+    }
+    &:nth-child(2) {
+      color: white;
+      background: black;
+    }
+  }
+}
+
+#container {
+  display: flex;
+}
+
+.controls-container {
+  display: flex;
+}
